@@ -39,6 +39,10 @@ class RandomValue(
         return generatedValue
     }
 
+    fun getBytes(): ByteArray? {
+        return generatedValue?.toByteArray()
+    }
+
     private fun getValues(equalDistribution: Boolean, securityStrength: SecurityStrength): String {
         val range: Int
         val charSet: CharArray
