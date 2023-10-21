@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "dev.retrotv"
-version = "0.1.0-alpha"
+version = "0.1.0-alpha-hotfix"
 
 // Github Action 버전 출력용
 tasks.register("printVersionName") {
@@ -31,6 +31,18 @@ tasks {
     }
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = project.group.toString()
+            artifactId = "random-value"
+            version = project.version.toString()
+
+            from(components["java"])
+        }
     }
 }
 
