@@ -23,7 +23,7 @@ val SMALL_LETTERS_LENGTH = SMALL_LETTERS.size
 val NUMBERS_LENGTH = NUMBERS.size
 val SPECIAL_CHARS_LENGTH = SPECIAL_CHARS.size
 
-class RandomValue(
+class RandomValue @JvmOverloads constructor(
     private var len: Int = DEFAULT_GENERATE_LENGTH,
     private var securityStrength: SecurityStrength = DEFAULT_SECURITY_STRENGTH,
     private var equalDistribution: Boolean = DEFAULT_EQUAL_DISTRIBUTION
