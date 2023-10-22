@@ -49,7 +49,7 @@ class RandomValue @JvmOverloads constructor(
      */
     fun generate() {
         require(len > 0) { LENGTH_MUST_BIGGER_THEN_ZERO }
-        generatedValue = getValues(equalDistribution, securityStrength)
+        generatedValue = generateValue(equalDistribution, securityStrength)
     }
 
     /**
@@ -70,70 +70,55 @@ class RandomValue @JvmOverloads constructor(
         return generatedValue?.toByteArray()
     }
 
-    private fun getValues(equalDistribution: Boolean, securityStrength: SecurityStrength): String {
+    private fun generateValue(equalDistribution: Boolean, securityStrength: SecurityStrength): String {
         val range: Int
         val charSet: CharArray
-        var i = 0
 
         val sb = StringBuilder()
         val sr = SecureRandom()
 
-        return if (equalDistribution) {
-            when (securityStrength) {
-                LOW -> {
-                    range = leastCommonMultiple(SMALL_LETTERS_LENGTH, NUMBERS_LENGTH) * 2
-                    charSet = getLowStrengthChars()
+        when (securityStrength) {
+            LOW -> {
+                range = if (equalDistribution) {
+                    leastCommonMultiple(SMALL_LETTERS_LENGTH, NUMBERS_LENGTH) * 2
+                } else {
+                    SMALL_LETTERS_LENGTH + NUMBERS_LENGTH
                 }
+                charSet = getLowStrengthChars()
+            }
 
-                MIDDLE -> {
-                    range = leastCommonMultiple(SMALL_LETTERS_LENGTH, NUMBERS_LENGTH, CAPITAL_LETTERS_LENGTH) * 3
-                    charSet = getMiddleStrengthChars()
+            MIDDLE -> {
+                range = if (equalDistribution) {
+                    leastCommonMultiple(SMALL_LETTERS_LENGTH, NUMBERS_LENGTH, CAPITAL_LETTERS_LENGTH) * 3
+                } else {
+                    CAPITAL_LETTERS_LENGTH + SMALL_LETTERS_LENGTH + NUMBERS_LENGTH
                 }
+                charSet = getMiddleStrengthChars()
+            }
 
-                HIGH -> {
-                    range = leastCommonMultiple(
+            HIGH -> {
+                range = if (equalDistribution) {
+                    leastCommonMultiple(
                         SMALL_LETTERS_LENGTH,
                         NUMBERS_LENGTH,
                         CAPITAL_LETTERS_LENGTH,
                         SPECIAL_CHARS_LENGTH
                     ) * 4
-                    charSet = getHighStrengthChars()
+                } else {
+                    CAPITAL_LETTERS_LENGTH + SMALL_LETTERS_LENGTH + NUMBERS_LENGTH + SPECIAL_CHARS_LENGTH
                 }
+                charSet = getHighStrengthChars()
             }
-
-            while (i < len) {
-                val random: Int = sr.nextInt(range)
-                sb.append(charSet[random])
-                i++
-            }
-
-            sb.toString()
-        } else {
-            when (securityStrength) {
-                LOW -> {
-                    range = SMALL_LETTERS_LENGTH + NUMBERS_LENGTH
-                    charSet = getLowStrengthChars()
-                }
-
-                MIDDLE -> {
-                    range = CAPITAL_LETTERS_LENGTH + SMALL_LETTERS_LENGTH + NUMBERS_LENGTH
-                    charSet = getMiddleStrengthChars()
-                }
-
-                HIGH -> {
-                    range = CAPITAL_LETTERS_LENGTH + SMALL_LETTERS_LENGTH + NUMBERS_LENGTH + SPECIAL_CHARS_LENGTH
-                    charSet = getHighStrengthChars()
-                }
-            }
-
-            while (i < len) {
-                val random: Int = sr.nextInt(range)
-                sb.append(charSet[random])
-                i++
-            }
-
-            return sb.toString()
         }
+
+        var i = 0
+        while (i < len) {
+            val random: Int = sr.nextInt(range)
+            sb.append(charSet[random])
+            i++
+        }
+
+        return sb.toString()
     }
 
     private fun getLowStrengthChars(): CharArray {
