@@ -8,7 +8,6 @@ import dev.retrotv.random.value.getNumbers
 import dev.retrotv.random.value.getSmallLetters
 import dev.retrotv.random.value.getSpecialChars
 import java.security.SecureRandom
-import java.util.*
 
 val DEFAULT_SECURITY_STRENGTH = MIDDLE
 const val DEFAULT_GENERATE_LENGTH = 16
@@ -259,15 +258,5 @@ class RandomValue @JvmOverloads constructor(
         }
 
         return chars
-    }
-
-    fun arraycopy(source: Arrays, target: Arrays, targetPos: Int, len: Int) {
-        System.arraycopy(
-            source,
-            0,
-            target,
-            targetPos,
-            len
-        )
     }
 }
