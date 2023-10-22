@@ -130,14 +130,16 @@ class RandomValue @JvmOverloads constructor(
         val chars = CharArray(arraySize)
 
         var len = if (equalDistribution) leastCommonMultiple/SMALL_LETTERS_LENGTH else 1
+        var destPos = 0
         for (i: Int in 1..len) {
             System.arraycopy(
                 SMALL_LETTERS,
                 0,
                 chars,
-                (i - 1) * SMALL_LETTERS_LENGTH,
+                destPos,
                 SMALL_LETTERS_LENGTH
             )
+            destPos += SMALL_LETTERS_LENGTH
         }
 
         len = if (equalDistribution) leastCommonMultiple/NUMBERS_LENGTH else 1
@@ -146,9 +148,10 @@ class RandomValue @JvmOverloads constructor(
                 NUMBERS,
                 0,
                 chars,
-                if (equalDistribution) leastCommonMultiple + (i - 1) * NUMBERS_LENGTH else SMALL_LETTERS_LENGTH,
+                destPos,
                 NUMBERS_LENGTH
             )
+            destPos += NUMBERS_LENGTH
         }
 
         return chars
@@ -164,14 +167,16 @@ class RandomValue @JvmOverloads constructor(
         val chars = CharArray(arraySize)
 
         var len = if (equalDistribution) leastCommonMultiple/SMALL_LETTERS_LENGTH else 1
+        var destPos = 0
         for (i: Int in 1..len) {
             System.arraycopy(
                 SMALL_LETTERS,
                 0,
                 chars,
-                (i - 1) * SMALL_LETTERS_LENGTH,
+                destPos,
                 SMALL_LETTERS_LENGTH
             )
+            destPos += SMALL_LETTERS_LENGTH
         }
 
         len = if (equalDistribution) leastCommonMultiple/NUMBERS_LENGTH else 1
@@ -180,9 +185,10 @@ class RandomValue @JvmOverloads constructor(
                 NUMBERS,
                 0,
                 chars,
-                if (equalDistribution) leastCommonMultiple + (i - 1) * NUMBERS_LENGTH else SMALL_LETTERS_LENGTH,
+                destPos,
                 NUMBERS_LENGTH
             )
+            destPos += NUMBERS_LENGTH
         }
 
         len = if (equalDistribution) leastCommonMultiple/CAPITAL_LETTERS_LENGTH else 1
@@ -191,9 +197,10 @@ class RandomValue @JvmOverloads constructor(
                 CAPITAL_LETTERS,
                 0,
                 chars,
-                if (equalDistribution) (leastCommonMultiple * 2) + ((i - 1) * CAPITAL_LETTERS_LENGTH) else SMALL_LETTERS_LENGTH + NUMBERS_LENGTH,
+                destPos,
                 CAPITAL_LETTERS_LENGTH
             )
+            destPos += CAPITAL_LETTERS_LENGTH
         }
 
         return chars
@@ -214,14 +221,16 @@ class RandomValue @JvmOverloads constructor(
         val chars = CharArray(arraySize)
 
         var len = if (equalDistribution) leastCommonMultiple/SMALL_LETTERS_LENGTH else 1
+        var destPos = 0
         for (i: Int in 1..len) {
             System.arraycopy(
                 SMALL_LETTERS,
                 0,
                 chars,
-                (i - 1) * SMALL_LETTERS_LENGTH,
+                destPos,
                 SMALL_LETTERS_LENGTH
             )
+            destPos += SMALL_LETTERS_LENGTH
         }
 
         len = if (equalDistribution) leastCommonMultiple/NUMBERS_LENGTH else 1
@@ -230,9 +239,10 @@ class RandomValue @JvmOverloads constructor(
                 NUMBERS,
                 0,
                 chars,
-                if (equalDistribution) leastCommonMultiple + (i - 1) * NUMBERS_LENGTH else SMALL_LETTERS_LENGTH,
+                destPos,
                 NUMBERS_LENGTH
             )
+            destPos += NUMBERS_LENGTH
         }
 
         len = if (equalDistribution) leastCommonMultiple/CAPITAL_LETTERS_LENGTH else 1
@@ -241,9 +251,10 @@ class RandomValue @JvmOverloads constructor(
                 CAPITAL_LETTERS,
                 0,
                 chars,
-                if (equalDistribution) (leastCommonMultiple * 2) + ((i - 1) * CAPITAL_LETTERS_LENGTH) else SMALL_LETTERS_LENGTH + NUMBERS_LENGTH,
+                destPos,
                 CAPITAL_LETTERS_LENGTH
             )
+            destPos += CAPITAL_LETTERS_LENGTH
         }
 
         len = if (equalDistribution) leastCommonMultiple/SPECIAL_CHARS_LENGTH else 1
@@ -252,9 +263,10 @@ class RandomValue @JvmOverloads constructor(
                 SPECIAL_CHARS,
                 0,
                 chars,
-                if (equalDistribution) (leastCommonMultiple * 3) + ((i - 1) * SPECIAL_CHARS_LENGTH) else SMALL_LETTERS_LENGTH + NUMBERS_LENGTH + CAPITAL_LETTERS_LENGTH,
+                destPos,
                 SPECIAL_CHARS_LENGTH
             )
+            destPos += SPECIAL_CHARS_LENGTH
         }
 
         return chars
