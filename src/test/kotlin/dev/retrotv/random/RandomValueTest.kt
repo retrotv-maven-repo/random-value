@@ -13,6 +13,7 @@ class RandomValueTest {
         rv.generate()
 
         println(rv.getValue())
+        println(rv.getBytes())
     }
 
     @Test
@@ -22,6 +23,7 @@ class RandomValueTest {
         rv.generate()
 
         println(rv.getValue())
+        println(rv.getBytes())
     }
 
     @Test
@@ -31,5 +33,6 @@ class RandomValueTest {
         rv.generate()
 
         println(rv.getValue())
+        println(rv.getBytes())
     }
 }
