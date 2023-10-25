@@ -334,9 +334,6 @@ class RandomValue @JvmOverloads constructor(
     }
 
     private fun scrambleChars(chars: CharArray, allLeastOneChars: CharArray): CharArray {
-        println("org chars")
-        println(chars)
-
         System.arraycopy(
             allLeastOneChars,
             0,
@@ -344,11 +341,6 @@ class RandomValue @JvmOverloads constructor(
             0,
             allLeastOneChars.size
         )
-
-        println("new chars")
-        println(chars)
-        println("allLeastOneChars")
-        println(allLeastOneChars)
 
         val orgCharMutableList = chars.toMutableList()
         val newCharArray = CharArray(chars.size)
