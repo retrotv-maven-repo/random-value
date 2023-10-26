@@ -1,6 +1,7 @@
 package dev.retrotv.random
 
 import dev.retrotv.data.utils.leastCommonMultiple
+import dev.retrotv.data.utils.scrambleChars
 import java.security.SecureRandom
 
 const val DEFAULT_ALL_CHAR_GROUP_LEAST_ONE = true
@@ -65,8 +66,21 @@ class RandomValueGenerator(vararg charGroup: CharArray) : Generator {
             i++
         }
 
-        ca = if (isAllCharGroupLeastOne) { scrambleChars(ca, allLeastOneChars!!) } else { ca }
-        return ca.contentToString()
+        ca = if (isAllCharGroupLeastOne) {
+            System.arraycopy(
+                allLeastOneChars!!,
+                0,
+                ca,
+                0,
+                allLeastOneChars.size
+            )
+
+            return scrambleChars(String(ca))
+        } else {
+            ca
+        }
+
+        return String(ca)
     }
 
     private fun getFullChars(): CharArray {
@@ -99,28 +113,4 @@ class RandomValueGenerator(vararg charGroup: CharArray) : Generator {
 
         return acglo
     }
-}
-
-private fun scrambleChars(chars: CharArray, allLeastOneChars: CharArray): CharArray {
-    System.arraycopy(
-        allLeastOneChars,
-        0,
-        chars,
-        0,
-        allLeastOneChars.size
-    )
-
-    val orgCharMutableList = chars.toMutableList()
-    val newCharArray = CharArray(chars.size)
-    val sr = SecureRandom()
-
-    var i = 0
-    while (i < newCharArray.size) {
-        val random: Int = sr.nextInt(orgCharMutableList.size)
-        newCharArray[i] = orgCharMutableList[random]
-        orgCharMutableList.removeAt(random)
-        i++
-    }
-
-    return newCharArray
 }
