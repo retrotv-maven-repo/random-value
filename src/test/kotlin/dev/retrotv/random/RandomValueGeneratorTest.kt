@@ -10,7 +10,7 @@ class RandomValueGeneratorTest {
 
     @Test
     fun test() {
-        val rp = PasswordGenerator(SecurityStrength.LOW)
+        val rp = RandomValueGenerator(getSmallLetters(), getNumbers(), getCapitalLetters())
         rp.generate(16)
         println(rp.getValue())
     }
