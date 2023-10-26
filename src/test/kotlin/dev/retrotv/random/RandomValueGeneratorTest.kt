@@ -1,15 +1,17 @@
 package dev.retrotv.random
 
+import dev.retrotv.random.enums.SecurityStrength
 import dev.retrotv.random.value.getCapitalLetters
 import dev.retrotv.random.value.getNumbers
 import dev.retrotv.random.value.getSmallLetters
 import kotlin.test.Test
 
-class RandomPasswordTest {
+class RandomValueGeneratorTest {
 
     @Test
     fun test() {
-        val rp = RandomPassword(charGroup = arrayOf(getCapitalLetters(), getSmallLetters(), getNumbers()))
+        val rp = PasswordGenerator(SecurityStrength.LOW)
         rp.generate(16)
+        println(rp.getValue())
     }
 }

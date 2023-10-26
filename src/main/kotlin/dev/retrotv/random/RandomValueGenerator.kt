@@ -11,7 +11,7 @@ var isEqualDistribution: Boolean = DEFAULT_EQUAL_DISTRIBUTION
 var allCharGroup: MutableList<CharArray> = mutableListOf()
 var allCharGroupLeastCommonMultiple: Int = 0
 
-class RandomPassword(vararg charGroup: CharArray) {
+class RandomValueGenerator(vararg charGroup: CharArray) : Generator {
     private var generatedValue: String? = null
 
     init {
@@ -23,16 +23,16 @@ class RandomPassword(vararg charGroup: CharArray) {
         allCharGroupLeastCommonMultiple = leastCommonMultiple(*sizeArray.toIntArray())
     }
 
-    fun generate(len: Int) {
+    override fun generate(len: Int) {
         require(len > 0) { "생성할 무작위 값 길이 len은 0보다 작을 수 없습니다." }
         generatedValue = generateValue(len)
     }
 
-    fun getValue(): String? {
+    override fun getValue(): String? {
         return generatedValue
     }
 
-    fun getBytes(): ByteArray? {
+    override fun getBytes(): ByteArray? {
         return generatedValue?.toByteArray()
     }
 
