@@ -2,16 +2,23 @@ package dev.retrotv.random
 
 import dev.retrotv.data.utils.leastCommonMultiple
 import dev.retrotv.data.utils.scrambleChars
+import java.lang.IllegalArgumentException
 import java.security.SecureRandom
 
-const val DEFAULT_ALL_CHAR_GROUP_LEAST_ONE = true
-const val DEFAULT_EQUAL_DISTRIBUTION = true
+private var isAllCharGroupLeastOne: Boolean = true
+private var isEqualDistribution: Boolean = true
+private var allCharGroup: MutableList<CharArray> = mutableListOf()
+private var allCharGroupLeastCommonMultiple: Int = 0
 
-var isAllCharGroupLeastOne: Boolean = DEFAULT_ALL_CHAR_GROUP_LEAST_ONE
-var isEqualDistribution: Boolean = DEFAULT_EQUAL_DISTRIBUTION
-var allCharGroup: MutableList<CharArray> = mutableListOf()
-var allCharGroupLeastCommonMultiple: Int = 0
-
+/**
+ * 범용적으로 사용할 수 있는 무작위 값 생성 클래스 입니다.
+ * property를 통해 입력받은 문자 그룹의 문자들을 토대로 무작위 값을 생성합니다.
+ * 기본적으로 모든 문자 그룹에서 최소 한글자 이상 보장하는 isAllCharGroupLeastOne 옵션과,
+ * 모든 문자 그룹에서 동일한 확률로 선택되도록 하는 isEqualDistribution 옵션이 활성화 됩니다.
+ *
+ * @property charGroup 문자 그룹의 집합
+ * @constructor property를 통해 입력받은 문자 그룹과 해당 문자 그룹의 문자 개수의 최소공배수 값을 전역변수로 설정한 RandomValueGenerator 객체를 생성합니다.
+ */
 class RandomValueGenerator(vararg charGroup: CharArray) : Generator {
     private var generatedValue: String? = null
 
@@ -37,25 +44,52 @@ class RandomValueGenerator(vararg charGroup: CharArray) : Generator {
         return generatedValue?.toByteArray()
     }
 
+    /**
+     * 모든 CharGroup에서 각각, 최소 하나의 값을 보장하도록 설정합니다.
+     */
     fun enableAllCharGroupLeastOne() {
         isAllCharGroupLeastOne = true
     }
 
+    /**
+     * 모든 CharGroup에서 각각, 최소 하나의 값을 보장하지 않도록 설정합니다.
+     */
     fun disableAllCharGroupLeastOne() {
         isAllCharGroupLeastOne = false
     }
 
+    /**
+     * 모든 CharGroup에서 동일한 확률로 값이 선택되도록 설정합니다.
+     */
     fun enableEqualDistribution() {
         isEqualDistribution = true
     }
 
+    /**
+     * 모든 CharGroup에서 동일하지 않은 확률로 값이 선택되도록 설정합니다.
+     */
     fun disableEqualDistribution() {
         isEqualDistribution = false
     }
 
+    /*
+     * 지정된 길이(len)과 각종 옵션 값에 근거하여 무작위 문자열을 생성하고 반환합니다.
+     */
     private fun generateValue(len: Int): String {
+
+        // 문자 그룹의 개수가 생성할 무작위 문자열의 길이보다 클 경우, 모든 문자 그룹에서 한 글자 이상 보장할 수 없으므로 예외 발생
+        if (isAllCharGroupLeastOne && allCharGroup.size > len) {
+            val message = """len 값이 allCharGroup.size 보다 작습니다.
+            |생성할 문자열 길이의 값은 모든 문자 그룹의 개수보다 크거나 같아야 합니다.
+            |이 오류를 무시하려면 generate 메소드 실행 전에 disableAllCharGroupLeastOne 메소드를 실행해
+            |모든 문자 그룹에서 최소 한글자 이상 보장하는 옵션을 비활성화 하십시오.
+            """.trimMargin()
+
+            throw IllegalArgumentException(message)
+        }
+
         val fullChars = getFullChars()
-        val allLeastOneChars = if (isAllCharGroupLeastOne) { getAllCharsGroupLeastOne() } else { null }
+        val allLeastOneChars = if (isAllCharGroupLeastOne) { getAllCharGroupLeastOne() } else { null }
 
         val sr = SecureRandom()
         var ca = CharArray(len)
@@ -83,9 +117,13 @@ class RandomValueGenerator(vararg charGroup: CharArray) : Generator {
         return String(ca)
     }
 
+    /*
+     * 모든 CharGroup을 묶어, 하나의 CharArray(char[])로 변환해 반환합니다.
+     */
     private fun getFullChars(): CharArray {
         val fullChars = CharArray(allCharGroupLeastCommonMultiple * allCharGroup.size)
         var destPos = 0
+
         allCharGroup.forEach{
             val len = allCharGroupLeastCommonMultiple/it.size
             for (i: Int in 1..len) {
@@ -103,7 +141,11 @@ class RandomValueGenerator(vararg charGroup: CharArray) : Generator {
         return fullChars
     }
 
-    private fun getAllCharsGroupLeastOne(): CharArray {
+    /*
+     * 모든 CharsGroup에서, 각각 하나의 문자를 무작위로 뽑아 반환합니다.
+     * 예를 들어 소문자/숫자 CharGroup이 존재하는 경우, 소문자 한 글자와 숫자 한 글자를 반환합니다.
+     */
+    private fun getAllCharGroupLeastOne(): CharArray {
         val acglo = CharArray(allCharGroup.size)
         allCharGroup.forEachIndexed { i, it ->
             val sr = SecureRandom()
