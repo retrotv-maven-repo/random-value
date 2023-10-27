@@ -2,6 +2,7 @@ package dev.retrotv.random
 
 import dev.retrotv.data.utils.leastCommonMultiple
 import dev.retrotv.data.utils.scrambleChars
+import java.lang.IllegalArgumentException
 import java.security.SecureRandom
 
 private var isAllCharGroupLeastOne: Boolean = true
@@ -75,6 +76,18 @@ class RandomValueGenerator(vararg charGroup: CharArray) : Generator {
      * 지정된 길이(len)과 각종 옵션 값에 근거하여 무작위 문자열을 생성하고 반환합니다.
      */
     private fun generateValue(len: Int): String {
+
+        // 문자 그룹의 개수가 생성할 무작위 문자열의 길이보다 클 경우, 모든 문자 그룹에서 한 글자 이상 보장할 수 없으므로 예외 발생
+        if (isAllCharGroupLeastOne && allCharGroup.size > len) {
+            val message = """len 값이 allCharGroup.size 보다 작습니다.
+            |생성할 문자열 길이의 값은 모든 문자 그룹의 개수보다 크거나 같아야 합니다.
+            |이 오류를 무시하려면 generate 메소드 실행 전에 disableAllCharGroupLeastOne 메소드를 실행해
+            |모든 문자 그룹에서 최소 한글자 이상 보장하는 옵션을 비활성화 하십시오.
+            """.trimMargin()
+
+            throw IllegalArgumentException(message)
+        }
+
         val fullChars = getFullChars()
         val allLeastOneChars = if (isAllCharGroupLeastOne) { getAllCharGroupLeastOne() } else { null }
 

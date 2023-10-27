@@ -11,7 +11,8 @@ class RandomValueGeneratorTest {
     @Test
     fun test() {
         val rp = RandomValueGenerator(getSmallLetters(), getNumbers(), getCapitalLetters())
-        rp.generate(16)
+        rp.disableAllCharGroupLeastOne()
+        rp.generate(2)
         println(rp.getValue())
     }
 }
