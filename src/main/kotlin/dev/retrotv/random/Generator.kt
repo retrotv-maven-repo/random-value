@@ -14,5 +14,5 @@ interface Generator {
      *
      * @return generate 메소드를 통해 생성된 데이터
      */
-    fun getBytes(): ByteArray?
+    fun getBytes(): ByteArray
 }

@@ -21,7 +21,7 @@ class PasswordGenerator(private val securityStrength: SecurityStrength): RandomS
         generatedValue = generateValue(len)
     }
 
-    private fun generateValue(len: Int): String? {
+    private fun generateValue(len: Int): String {
         val rv = when (securityStrength) {
             LOW -> {
                 UniversalRandomStringGenerator(getSmallLetters(), getNumbers())

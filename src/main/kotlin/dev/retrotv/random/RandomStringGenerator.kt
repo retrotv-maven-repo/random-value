@@ -10,7 +10,7 @@ package dev.retrotv.random
  * @constructor property를 통해 입력받은 문자 그룹과 해당 문자 그룹의 문자 개수의 최소공배수 값을 전역변수로 설정한 RandomStringGenerator 객체를 생성합니다.
  */
 abstract class RandomStringGenerator: Generator {
-    protected var generatedValue: String? = null
+    protected lateinit var generatedValue: String
 
     abstract override fun generate(len: Int)
 
@@ -19,11 +19,11 @@ abstract class RandomStringGenerator: Generator {
      *
      * @return generate 메소드를 통해 생성된 문자열
      */
-    fun getString(): String? {
+    fun getString(): String {
         return generatedValue
     }
 
-    override fun getBytes(): ByteArray? {
-        return generatedValue?.toByteArray()
+    override fun getBytes(): ByteArray {
+        return generatedValue.toByteArray()
     }
 }

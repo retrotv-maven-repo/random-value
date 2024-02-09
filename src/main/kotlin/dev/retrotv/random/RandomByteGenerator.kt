@@ -4,14 +4,14 @@ import java.security.SecureRandom
 
 class RandomByteGenerator: Generator {
     private val sr = SecureRandom()
-    private var randomData: ByteArray? = null
+    private lateinit var randomData: ByteArray
 
     override fun generate(len: Int) {
         randomData = ByteArray(len)
         sr.nextBytes(randomData)
     }
 
-    override fun getBytes(): ByteArray? {
+    override fun getBytes(): ByteArray {
         return randomData
     }
 }
