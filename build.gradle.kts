@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "dev.retrotv"
-version = "0.5.0-alpha"
+version = "0.6.0-alpha"
 
 // Github Action 버전 출력용
 tasks.register("printVersionName") {
@@ -18,11 +18,14 @@ repositories {
     maven { setUrl("https://jitpack.io") }
 }
 
+val dataUtilsVersion = "0.14.0-alpha"
+val junitVersion = "5.10.0"
+
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("com.github.retrotv-maven-repo:data-utils:0.11.1-alpha")
+    implementation("com.github.retrotv-maven-repo:data-utils:$dataUtilsVersion")
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
 }
 
 tasks {
