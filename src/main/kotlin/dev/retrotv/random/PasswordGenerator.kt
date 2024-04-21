@@ -6,6 +6,7 @@ import dev.retrotv.random.value.getCapitalLetters
 import dev.retrotv.random.value.getNumbers
 import dev.retrotv.random.value.getSmallLetters
 import dev.retrotv.random.value.getSpecialChars
+import java.util.*
 
 /**
  * 무작위 패스워드 생성을 위한 클래스 입니다.
@@ -15,9 +16,11 @@ import dev.retrotv.random.value.getSpecialChars
  * @constructor 빈 PasswordGenerator 클래스 생성
  */
 class PasswordGenerator(private val securityStrength: SecurityStrength): RandomStringGenerator() {
+    private lateinit var random: Random
 
-    override fun generate(len: Int) {
+    override fun generate(len: Int, random: Random) {
         require(len > 0) { "생성할 무작위 값 길이 len은 0보다 작을 수 없습니다." }
+        this.random = random
         generatedValue = generateValue(len)
     }
 
@@ -36,7 +39,7 @@ class PasswordGenerator(private val securityStrength: SecurityStrength): RandomS
             }
         }
 
-        rv.generate(len)
-        return rv.getString()
+        rv.generate(len, this.random)
+        return rv.getValue()
     }
 }
