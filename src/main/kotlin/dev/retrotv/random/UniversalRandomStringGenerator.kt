@@ -2,20 +2,37 @@ package dev.retrotv.random
 
 import dev.retrotv.data.utils.leastCommonMultiple
 import dev.retrotv.data.utils.scrambleChars
+import dev.retrotv.random.value.getCapitalLetters
+import dev.retrotv.random.value.getNumbers
+import dev.retrotv.random.value.getSmallLetters
+import dev.retrotv.random.value.getSpecialChars
 import java.lang.IllegalArgumentException
 import java.security.SecureRandom
+import java.util.*
 
 private var isAllCharGroupLeastOne: Boolean = true
 private var isEqualDistribution: Boolean = true
 
-class UniversalRandomStringGenerator(vararg charGroup: CharArray): RandomStringGenerator() {
-    private val sr = SecureRandom()
+class UniversalRandomStringGenerator(vararg charGroups: CharArray): RandomStringGenerator() {
+    private lateinit var random: Random
     private var allCharGroup: MutableList<CharArray> = mutableListOf()
     private var allCharGroupLeastCommonMultiple: Int = 0
+    private val charGroups by lazy {
+        if (charGroups.isEmpty()) {
+            arrayOf(
+                getCapitalLetters(),
+                getNumbers(),
+                getSmallLetters(),
+                getSpecialChars()
+            )
+        } else {
+            charGroups
+        }
+    }
 
     init {
         val sizeArray: MutableList<Int> = mutableListOf()
-        charGroup.forEach {
+        this.charGroups.forEach {
             allCharGroup.add(it)
             sizeArray.add(it.size)
         }
@@ -23,8 +40,9 @@ class UniversalRandomStringGenerator(vararg charGroup: CharArray): RandomStringG
         allCharGroupLeastCommonMultiple = leastCommonMultiple(*sizeArray.toIntArray())
     }
 
-    override fun generate(len: Int) {
+    override fun generate(len: Int, random: Random) {
         require(len > 0) { "생성할 무작위 값 길이 len은 0보다 작을 수 없습니다." }
+        this.random = random
         generatedValue = generateValue(len)
     }
 
@@ -78,7 +96,7 @@ class UniversalRandomStringGenerator(vararg charGroup: CharArray): RandomStringG
         var ca = CharArray(len)
         var i = allLeastOneChars?.size ?: 0
         while (i < len) {
-            val random: Int = sr.nextInt(fullChars.size)
+            val random: Int = random.nextInt(fullChars.size)
             ca[i] = fullChars[random]
             i++
         }
