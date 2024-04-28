@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "dev.retrotv"
-version = "0.6.0-alpha"
+version = "0.7.0-alpha"
 
 // Github Action 버전 출력용
 tasks.register("printVersionName") {
@@ -18,7 +18,7 @@ repositories {
     maven { setUrl("https://jitpack.io") }
 }
 
-val dataUtilsVersion = "0.15.0-alpha"
+val dataUtilsVersion = "0.16.0-alpha"
 val junitVersion = "5.10.0"
 
 dependencies {
