@@ -1,17 +1,16 @@
 package dev.retrotv.random
 
-import java.security.SecureRandom
+import java.util.Random
 
-class RandomByteGenerator: Generator {
-    private val sr = SecureRandom()
+class RandomByteGenerator(private val random: Random): RandomGenerator<ByteArray> {
     private lateinit var randomData: ByteArray
 
     override fun generate(len: Int) {
         randomData = ByteArray(len)
-        sr.nextBytes(randomData)
+        random.nextBytes(randomData)
     }
 
-    override fun getBytes(): ByteArray {
+    override fun getValue(): ByteArray {
         return randomData
     }
 }

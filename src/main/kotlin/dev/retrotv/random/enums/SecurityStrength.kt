@@ -7,9 +7,11 @@ package dev.retrotv.random.enums
  * @since   1.8
  */
 enum class SecurityStrength(private val label: String, private val explain: String) {
-    LOW("low", "소문자와 숫자만을 사용합니다."),
-    MIDDLE("middle", "대문자, 소문자 그리고 숫자를 사용합니다."),
-    HIGH("high", "대문자, 소문자, 숫자 그리고 특수문자를 사용합니다.");
+      ONLY_NUMBER("only number", "숫자만 사용합니다.")
+    , LOW("low", "소문자와 숫자만을 사용합니다.")
+    , MIDDLE("middle", "대문자, 소문자 그리고 숫자를 사용합니다.")
+    , HIGH("high", "대문자, 소문자, 숫자 그리고 특수문자를 사용합니다.")
+    ;
 
     /**
      * 해당 enum의 label 값을 반환합니다.

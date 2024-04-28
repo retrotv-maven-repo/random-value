@@ -18,7 +18,7 @@ repositories {
     maven { setUrl("https://jitpack.io") }
 }
 
-val dataUtilsVersion = "0.14.0-alpha"
+val dataUtilsVersion = "0.15.0-alpha"
 val junitVersion = "5.10.0"
 
 dependencies {
