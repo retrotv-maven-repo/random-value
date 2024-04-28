@@ -2,10 +2,10 @@ package dev.retrotv.random
 
 import java.util.Random
 
-class RandomByteGenerator: RandomGenerator<ByteArray> {
+class RandomByteGenerator(private val random: Random): RandomGenerator<ByteArray> {
     private lateinit var randomData: ByteArray
 
-    override fun generate(len: Int, random: Random) {
+    override fun generate(len: Int) {
         randomData = ByteArray(len)
         random.nextBytes(randomData)
     }

@@ -1,11 +1,7 @@
 package dev.retrotv.random
 
 import dev.retrotv.random.enums.SecurityStrength
-import dev.retrotv.random.enums.SecurityStrength.*
-import dev.retrotv.random.value.getCapitalLetters
-import dev.retrotv.random.value.getNumbers
-import dev.retrotv.random.value.getSmallLetters
-import dev.retrotv.random.value.getSpecialChars
+import dev.retrotv.random.enums.RandomValueType
 import java.util.*
 
 /**
@@ -15,31 +11,5 @@ import java.util.*
  * @property securityStrength 생성할 패스워드 보안 강도
  * @constructor 빈 PasswordGenerator 클래스 생성
  */
-class PasswordGenerator(private val securityStrength: SecurityStrength): RandomStringGenerator() {
-    private lateinit var random: Random
-
-    override fun generate(len: Int, random: Random) {
-        require(len > 0) { "생성할 무작위 값 길이 len은 0보다 작을 수 없습니다." }
-        this.random = random
-        generatedValue = generateValue(len)
-    }
-
-    private fun generateValue(len: Int): String {
-        val rv = when (securityStrength) {
-            LOW -> {
-                UniversalRandomStringGenerator(getSmallLetters(), getNumbers())
-            }
-
-            MIDDLE -> {
-                UniversalRandomStringGenerator(getSmallLetters(), getNumbers(), getCapitalLetters())
-            }
-
-            HIGH -> {
-                UniversalRandomStringGenerator(getSmallLetters(), getNumbers(), getCapitalLetters(), getSpecialChars())
-            }
-        }
-
-        rv.generate(len, this.random)
-        return rv.getValue()
-    }
-}
+class PasswordGenerator(securityStrength: SecurityStrength, random: Random)
+    : RandomStringGenerator(RandomValueType.PASSWORD, securityStrength, random)

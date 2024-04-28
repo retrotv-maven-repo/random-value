@@ -13,7 +13,7 @@ interface RandomGenerator<T> {
      * @param len 생성할 문자열의 길이
      * @param random
      */
-    fun generate(len: Int, random: Random)
+    fun generate(len: Int)
 
     /**
      * generate 메소드를 통해 생성된 데이터를 ByteArray(byte[]) 형식으로 반환합니다.

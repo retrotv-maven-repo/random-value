@@ -1,9 +1,6 @@
 package dev.retrotv.random
 
-import dev.retrotv.random.value.getCapitalLetters
-import dev.retrotv.random.value.getNumbers
-import dev.retrotv.random.value.getSmallLetters
-import dev.retrotv.random.value.getSpecialChars
+import dev.retrotv.random.enums.SecurityStrength
 import java.security.SecureRandom
 import kotlin.test.Test
 
@@ -11,9 +8,12 @@ class RandomStringRandomGeneratorTest {
 
     @Test
     fun test() {
-        val rp = UniversalRandomStringGenerator(getSmallLetters(), getNumbers(), getCapitalLetters(), getSpecialChars())
-        rp.disableAllCharGroupLeastOne()
-        rp.generate(20, SecureRandom())
-        println(rp.getValue())
+        val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+        passwordGenerator.generate(8)
+        println(passwordGenerator.getValue())
+
+        val otpGenerator = OTPGenerator(SecureRandom())
+        otpGenerator.generate(6)
+        println(otpGenerator.getValue())
     }
 }
