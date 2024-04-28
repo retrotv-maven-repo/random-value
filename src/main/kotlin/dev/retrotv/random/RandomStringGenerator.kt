@@ -1,7 +1,7 @@
 package dev.retrotv.random
 
-import dev.retrotv.data.utils.leastCommonMultiple
-import dev.retrotv.data.utils.scrambleChars
+import dev.retrotv.data.utils.NumberUtils
+import dev.retrotv.data.utils.StringUtils
 import dev.retrotv.random.enums.RandomValueType
 import dev.retrotv.random.enums.SecurityStrength
 import java.lang.IllegalArgumentException
@@ -61,7 +61,7 @@ abstract class RandomStringGenerator(
         }
 
         allCharGroupLeastCommonMultiple = if (!(type == RandomValueType.OTP || securityStrength == SecurityStrength.ONLY_NUMBER)) {
-            leastCommonMultiple(*sizeArray.toIntArray())
+            NumberUtils.leastCommonMultiple(*sizeArray.toIntArray())
         } else {
             sizeArray[0]
         }
@@ -140,7 +140,7 @@ abstract class RandomStringGenerator(
                 allLeastOneChars.size
             )
 
-            return scrambleChars(String(ca))
+            return StringUtils.scrambleChars(String(ca))
         } else {
             ca
         }
