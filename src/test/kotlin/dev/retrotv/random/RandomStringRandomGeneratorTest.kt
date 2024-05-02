@@ -1,6 +1,6 @@
 package dev.retrotv.random
 
-import dev.retrotv.data.utils.toHexString
+import dev.retrotv.data.utils.ByteUtils.toHexString
 import dev.retrotv.random.enums.SecurityStrength
 import java.security.SecureRandom
 import kotlin.test.Test
