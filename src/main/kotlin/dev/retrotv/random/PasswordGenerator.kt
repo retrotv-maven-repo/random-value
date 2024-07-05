@@ -12,4 +12,4 @@ import java.util.*
  * @constructor 빈 PasswordGenerator 클래스 생성
  */
 class PasswordGenerator(securityStrength: SecurityStrength, random: Random)
-    : RandomStringGenerator(RandomValueType.PASSWORD, securityStrength, random)
+    : StringGenerator(RandomValueType.PASSWORD, securityStrength, random)

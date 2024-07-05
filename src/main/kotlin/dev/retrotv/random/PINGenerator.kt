@@ -6,4 +6,4 @@ import java.security.SecureRandom
 import java.util.Random
 
 class PINGenerator(random: Random)
-    : RandomStringGenerator(RandomValueType.PIN, SecurityStrength.ONLY_NUMBER, SecureRandom())
+    : StringGenerator(RandomValueType.PIN, SecurityStrength.ONLY_NUMBER, SecureRandom())

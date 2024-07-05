@@ -1,12 +1,14 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     java
-    kotlin("jvm") version "1.9.23"
+    kotlin("jvm") version "2.0.0"
     `maven-publish`
     id("org.jetbrains.dokka") version "1.9.20"
 }
 
 group = "dev.retrotv"
-version = "0.8.0-alpha"
+version = "0.10.0-alpha"
 
 // Github Action 버전 출력용
 tasks.register("printVersionName") {
@@ -30,10 +32,10 @@ dependencies {
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_1_8)
     }
     compileTestKotlin {
-        kotlinOptions.jvmTarget = "1.8"
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_1_8)
     }
 }
 
