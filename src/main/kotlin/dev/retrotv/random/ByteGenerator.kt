@@ -2,7 +2,7 @@ package dev.retrotv.random
 
 import java.util.Random
 
-class RandomByteGenerator(private val random: Random): RandomGenerator<ByteArray> {
+class ByteGenerator(private val random: Random): RandomGenerator<ByteArray> {
     private lateinit var randomData: ByteArray
 
     override fun generate(len: Int) {

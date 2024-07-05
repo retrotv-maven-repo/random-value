@@ -39,7 +39,7 @@ private val SPECIAL_CHARS = charArrayOf(
  * @property charGroup 문자 그룹의 집합
  * @constructor property를 통해 입력받은 문자 그룹과 해당 문자 그룹의 문자 개수의 최소공배수 값을 전역변수로 설정한 RandomStringGenerator 객체를 생성합니다.
  */
-abstract class RandomStringGenerator(
+abstract class StringGenerator(
     type: RandomValueType, private val securityStrength: SecurityStrength, private val random: Random
 ): RandomGenerator<String> {
     private var allCharGroup: MutableList<CharArray> = mutableListOf()

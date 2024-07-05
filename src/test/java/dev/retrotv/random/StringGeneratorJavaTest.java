@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.security.SecureRandom;
 
-class RandomStringGeneratorTest {
+class StringGeneratorJavaTest {
 
     @Test
     void test_randomStringGenerator() {

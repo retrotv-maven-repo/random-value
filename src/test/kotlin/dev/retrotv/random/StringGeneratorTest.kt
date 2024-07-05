@@ -5,7 +5,7 @@ import dev.retrotv.random.enums.SecurityStrength
 import java.security.SecureRandom
 import kotlin.test.Test
 
-class RandomStringRandomGeneratorTest {
+class StringGeneratorTest {
 
     @Test
     fun test() {
