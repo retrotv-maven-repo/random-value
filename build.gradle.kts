@@ -81,6 +81,6 @@ sonar {
         property("sonar.projectKey", "retrotv-maven-repo_random-value")
         property("sonar.organization", "retrotv-maven-repo")
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.coverage.exclusions", "'src/main/kotlin/dev/retrotv/random/enums/*.kt'")
+        property("sonar.coverage.exclusions", "**/enums/*")
     }
 }
