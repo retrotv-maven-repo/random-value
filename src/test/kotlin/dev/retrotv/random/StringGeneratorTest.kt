@@ -2,6 +2,7 @@ package dev.retrotv.random
 
 import dev.retrotv.data.utils.ByteUtils.toHexString
 import dev.retrotv.random.enums.SecurityStrength
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.RepeatedTest
@@ -36,6 +37,16 @@ class StringGeneratorTest {
 
         println(toHexString(randomValue1))
         println(toHexString(randomValue2))
+    }
+
+    @Test
+    @DisplayName("IllegalArgumentException 발생 테스트")
+    fun test_illegalArgumentException() {
+        val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+        assertThrows(IllegalArgumentException::class.java) {
+            passwordGenerator.enableAllCharGroupLeastOne()
+            passwordGenerator.generate(1)
+        }
     }
 
     @Nested
