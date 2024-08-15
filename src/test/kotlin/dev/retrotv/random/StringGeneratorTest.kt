@@ -14,17 +14,6 @@ import kotlin.test.*
 class StringGeneratorTest {
 
     @Test
-    fun test() {
-        val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
-        passwordGenerator.generate(8)
-        println(passwordGenerator.getValue())
-
-        val otpGenerator = PINGenerator(SecureRandom())
-        otpGenerator.generate(6)
-        println(otpGenerator.getValue())
-    }
-
-    @Test
     fun test_secureRandom() {
         val sr1 = SecureRandom()
         val sr2 = SecureRandom()
@@ -35,8 +24,54 @@ class StringGeneratorTest {
         sr1.nextBytes(randomValue1)
         sr2.nextBytes(randomValue2)
 
-        println(toHexString(randomValue1))
-        println(toHexString(randomValue2))
+        assertNotNull(toHexString(randomValue1))
+        assertNotNull(toHexString(randomValue2))
+    }
+
+    @Nested
+    @DisplayName("SecurityStrength 분기 테스트")
+    inner class TestSecurityStrength {
+
+        @DisplayName("SecurityStrength.LOW 테스트")
+        @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
+        fun test_low() {
+            val passwordGenerator = PasswordGenerator(SecurityStrength.LOW, SecureRandom())
+            passwordGenerator.generate(8)
+            passwordGenerator.enableAllCharGroupLeastOne()
+            val generatedValue = passwordGenerator.getValue()
+
+            assertFalse(generatedValue.contains(Regex(".*[A-Z]+")))
+            assertTrue(generatedValue.contains(Regex(".*[a-z]+")))
+            assertTrue(generatedValue.contains(Regex(".*[0-9]+")))
+            assertFalse(generatedValue.contains(Regex(".*[^A-Za-z0-9]+")))
+        }
+        @DisplayName("SecurityStrength.MEDIUM 테스트")
+        @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
+        fun test_medium() {
+            val passwordGenerator = PasswordGenerator(SecurityStrength.MIDDLE, SecureRandom())
+            passwordGenerator.generate(8)
+            passwordGenerator.enableAllCharGroupLeastOne()
+            val generatedValue = passwordGenerator.getValue()
+
+            assertTrue(generatedValue.contains(Regex(".*[A-Z]+")))
+            assertTrue(generatedValue.contains(Regex(".*[a-z]+")))
+            assertTrue(generatedValue.contains(Regex(".*[0-9]+")))
+            assertFalse(generatedValue.contains(Regex(".*[^A-Za-z0-9]+")))
+        }
+
+        @DisplayName("SecurityStrength.HIGH 테스트")
+        @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
+        fun test_high() {
+            val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+            passwordGenerator.generate(8)
+            passwordGenerator.enableAllCharGroupLeastOne()
+            val generatedValue = passwordGenerator.getValue()
+
+            assertTrue(generatedValue.contains(Regex(".*[A-Z]+")))
+            assertTrue(generatedValue.contains(Regex(".*[a-z]+")))
+            assertTrue(generatedValue.contains(Regex(".*[0-9]+")))
+            assertTrue(generatedValue.contains(Regex(".*[^A-Za-z0-9]+")))
+        }
     }
 
     @Test
@@ -64,7 +99,7 @@ class StringGeneratorTest {
             assertTrue(generatedValue.contains(Regex(".*[A-Z]+")))
             assertTrue(generatedValue.contains(Regex(".*[a-z]+")))
             assertTrue(generatedValue.contains(Regex(".*[0-9]+")))
-            assertTrue(generatedValue.contains(Regex(".*[\\\\!@#%^&*()_+-=\\[\\]{}|;':\",./<>?~`]+")))
+            assertTrue(generatedValue.contains(Regex(".*[^A-Za-z0-9]+")))
         }
 
         @Test
