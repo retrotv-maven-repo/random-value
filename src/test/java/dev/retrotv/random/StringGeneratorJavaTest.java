@@ -5,12 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import java.security.SecureRandom;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class StringGeneratorJavaTest {
 
     @Test
     void test_randomStringGenerator() {
         PasswordGenerator pg = new PasswordGenerator(SecurityStrength.HIGH, new SecureRandom());
         pg.generate(8);
-        System.out.println(pg.getValue());
+        assertNotNull(pg.getValue());
     }
 }
