@@ -6,7 +6,7 @@ import kotlin.test.*
 
 class PINGeneratorTest {
 
-    @RepeatedTest(value = 100)
+    @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
     @DisplayName("PIN 생성 테스트")
     fun test_generate() {
         val pinGenerator = PINGenerator(SecureRandom())
