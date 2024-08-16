@@ -1,13 +1,12 @@
 package dev.retrotv.random
 
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Test
 import java.security.SecureRandom
+import org.junit.jupiter.api.*
 import kotlin.test.*
 
 class PINGeneratorTest {
 
-    @Test
+    @RepeatedTest(value = 100)
     @DisplayName("PIN 생성 테스트")
     fun test_generate() {
         val pinGenerator = PINGenerator(SecureRandom())

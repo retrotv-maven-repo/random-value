@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "dev.retrotv"
-version = "0.10.1-alpha"
+version = "0.11.0-alpha"
 
 // Github Action 버전 출력용
 tasks.register("printVersionName") {
@@ -26,10 +26,12 @@ repositories {
 
 val dataUtilsVersion = "0.16.0-alpha"
 val junitVersion = "5.10.0"
+val fakerVersion = "1.16.0"
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("com.github.retrotv-maven-repo:data-utils:${dataUtilsVersion}")
+    implementation("io.github.serpro69:kotlin-faker:${fakerVersion}")
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
 }
