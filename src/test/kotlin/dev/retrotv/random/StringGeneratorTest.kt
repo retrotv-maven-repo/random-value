@@ -1,6 +1,5 @@
 package dev.retrotv.random
 
-import dev.retrotv.data.utils.ByteUtils.toHexString
 import dev.retrotv.random.enums.SecurityStrength
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
@@ -12,21 +11,6 @@ import kotlin.test.*
 
 
 class StringGeneratorTest {
-
-    @Test
-    fun test_secureRandom() {
-        val sr1 = SecureRandom()
-        val sr2 = SecureRandom()
-        val randomValue1 = ByteArray(128)
-        val randomValue2 = ByteArray(128)
-        sr1.setSeed(1234567890L)
-        sr2.setSeed(1234567890L)
-        sr1.nextBytes(randomValue1)
-        sr2.nextBytes(randomValue2)
-
-        assertNotNull(toHexString(randomValue1))
-        assertNotNull(toHexString(randomValue2))
-    }
 
     @Nested
     @DisplayName("SecurityStrength 분기 테스트")
