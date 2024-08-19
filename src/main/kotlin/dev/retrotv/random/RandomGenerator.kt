@@ -11,7 +11,6 @@ interface RandomGenerator<T> {
      * 지정한 길이만큼 무작위 데이터를 생성합니다.
      *
      * @param len 생성할 문자열의 길이
-     * @param random
      */
     fun generate(len: Int)
 

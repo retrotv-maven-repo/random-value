@@ -1,7 +1,6 @@
 package dev.retrotv.random
 
 import dev.retrotv.random.enums.SecurityStrength
-import dev.retrotv.random.enums.RandomValueType
 import java.util.*
 
 /**
@@ -12,4 +11,4 @@ import java.util.*
  * @constructor 빈 PasswordGenerator 클래스 생성
  */
 class PasswordGenerator(securityStrength: SecurityStrength, random: Random)
-    : StringGenerator(RandomValueType.PASSWORD, securityStrength, random)
+    : StringGenerator(securityStrength, random)
