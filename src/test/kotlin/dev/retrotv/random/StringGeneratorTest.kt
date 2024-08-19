@@ -20,41 +20,40 @@ class StringGeneratorTest {
         @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
         fun test_low() {
             val passwordGenerator = PasswordGenerator(SecurityStrength.LOW, SecureRandom())
-            passwordGenerator.generate(8)
             passwordGenerator.enableAllCharGroupLeastOne()
-            val generatedValue = passwordGenerator.getValue()
+            val password = passwordGenerator.generate(8)
 
-            assertFalse(generatedValue.contains(Regex(".*[A-Z]+")))
-            assertTrue(generatedValue.contains(Regex(".*[a-z]+")))
-            assertTrue(generatedValue.contains(Regex(".*[0-9]+")))
-            assertFalse(generatedValue.contains(Regex(".*[^A-Za-z0-9]+")))
+            assertFalse(password.contains(Regex(".*[A-Z]+")))
+            assertTrue(password.contains(Regex(".*[a-z]+")))
+            assertTrue(password.contains(Regex(".*[0-9]+")))
+            assertFalse(password.contains(Regex(".*[^A-Za-z0-9]+")))
         }
         @DisplayName("SecurityStrength.MEDIUM 테스트")
         @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
         fun test_medium() {
             val passwordGenerator = PasswordGenerator(SecurityStrength.MIDDLE, SecureRandom())
-            passwordGenerator.generate(8)
             passwordGenerator.enableAllCharGroupLeastOne()
-            val generatedValue = passwordGenerator.getValue()
+            val password = passwordGenerator.generate(8)
 
-            assertTrue(generatedValue.contains(Regex(".*[A-Z]+")))
-            assertTrue(generatedValue.contains(Regex(".*[a-z]+")))
-            assertTrue(generatedValue.contains(Regex(".*[0-9]+")))
-            assertFalse(generatedValue.contains(Regex(".*[^A-Za-z0-9]+")))
+            assertTrue(password.contains(Regex(".*[A-Z]+")))
+            assertTrue(password.contains(Regex(".*[a-z]+")))
+            assertTrue(password.contains(Regex(".*[0-9]+")))
+            assertFalse(password.contains(Regex(".*[^A-Za-z0-9]+")))
         }
 
         @DisplayName("SecurityStrength.HIGH 테스트")
         @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
         fun test_high() {
             val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
-            passwordGenerator.generate(8)
             passwordGenerator.enableAllCharGroupLeastOne()
-            val generatedValue = passwordGenerator.getValue()
+            val password = passwordGenerator.generate(8)
 
-            assertTrue(generatedValue.contains(Regex(".*[A-Z]+")))
-            assertTrue(generatedValue.contains(Regex(".*[a-z]+")))
-            assertTrue(generatedValue.contains(Regex(".*[0-9]+")))
-            assertTrue(generatedValue.contains(Regex(".*[^A-Za-z0-9]+")))
+            println(password)
+
+            assertTrue(password.contains(Regex(".*[A-Z]+")))
+            assertTrue(password.contains(Regex(".*[a-z]+")))
+            assertTrue(password.contains(Regex(".*[0-9]+")))
+            assertTrue(password.contains(Regex(".*[^A-Za-z0-9]+")))
         }
     }
 
@@ -77,13 +76,12 @@ class StringGeneratorTest {
         fun test_enableAllCharGroupLeastOne() {
             val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
             passwordGenerator.enableAllCharGroupLeastOne()
-            passwordGenerator.generate(8)
-            val generatedValue = passwordGenerator.getValue()
+            val password = passwordGenerator.generate(8)
 
-            assertTrue(generatedValue.contains(Regex(".*[A-Z]+")))
-            assertTrue(generatedValue.contains(Regex(".*[a-z]+")))
-            assertTrue(generatedValue.contains(Regex(".*[0-9]+")))
-            assertTrue(generatedValue.contains(Regex(".*[^A-Za-z0-9]+")))
+            assertTrue(password.contains(Regex(".*[A-Z]+")))
+            assertTrue(password.contains(Regex(".*[a-z]+")))
+            assertTrue(password.contains(Regex(".*[0-9]+")))
+            assertTrue(password.contains(Regex(".*[^A-Za-z0-9]+")))
         }
 
         @Test
@@ -91,11 +89,10 @@ class StringGeneratorTest {
         fun test_disableAllCharGroupLeastOne() {
             val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
             passwordGenerator.disableAllCharGroupLeastOne()
-            passwordGenerator.generate(8)
-            val generatedValue = passwordGenerator.getValue()
+            val password = passwordGenerator.generate(8)
 
-            assertNotNull(generatedValue)
-            assertEquals(8, generatedValue.length)
+            assertNotNull(password)
+            assertEquals(8, password.length)
         }
     }
 
@@ -108,11 +105,10 @@ class StringGeneratorTest {
         fun test_enableEqualDistribution() {
             val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
             passwordGenerator.enableEqualDistribution()
-            passwordGenerator.generate(8)
-            val generatedValue = passwordGenerator.getValue()
+            val password = passwordGenerator.generate(8)
 
-            assertNotNull(generatedValue)
-            assertEquals(8, generatedValue.length)
+            assertNotNull(password)
+            assertEquals(8, password.length)
         }
 
         @Test
@@ -120,11 +116,10 @@ class StringGeneratorTest {
         fun test_disableEqualDistribution() {
             val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
             passwordGenerator.disableEqualDistribution()
-            passwordGenerator.generate(8)
-            val generatedValue = passwordGenerator.getValue()
+            val password = passwordGenerator.generate(8)
 
-            assertNotNull(generatedValue)
-            assertEquals(8, generatedValue.length)
+            assertNotNull(password)
+            assertEquals(8, password.length)
         }
     }
 }

@@ -2,14 +2,13 @@ package dev.retrotv.random
 
 import java.security.SecureRandom
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 
 class DoubleGeneratorTest {
 
     @Test
     fun test_DeciamlGenerator() {
         val doubleGenerator = DoubleGenerator(SecureRandom())
-        doubleGenerator.generate(16)
-        val value = doubleGenerator.getValue()
-        println(value)
+        assertNotNull(doubleGenerator.generate(16))
     }
 }

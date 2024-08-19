@@ -12,7 +12,6 @@ class StringGeneratorJavaTest {
     @Test
     void test_randomStringGenerator() {
         PasswordGenerator pg = new PasswordGenerator(SecurityStrength.HIGH, new SecureRandom());
-        pg.generate(8);
-        assertNotNull(pg.getValue());
+        assertNotNull(pg.generate(8));
     }
 }

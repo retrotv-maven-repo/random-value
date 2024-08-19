@@ -8,16 +8,10 @@ import java.util.*
 interface RandomGenerator<T> {
 
     /**
-     * 지정한 길이만큼 무작위 데이터를 생성합니다.
+     * 지정한 길이만큼 무작위 데이터를 생성하고 반환합니다.
      *
      * @param len 생성할 문자열의 길이
+     * @return 생성된 데이터
      */
-    fun generate(len: Int)
-
-    /**
-     * generate 메소드를 통해 생성된 데이터를 ByteArray(byte[]) 형식으로 반환합니다.
-     *
-     * @return generate 메소드를 통해 생성된 데이터
-     */
-    fun getValue(): T
+    fun generate(len: Int): T
 }

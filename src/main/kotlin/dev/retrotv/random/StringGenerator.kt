@@ -62,13 +62,9 @@ abstract class StringGenerator(
         }
     }
 
-    override fun generate(len: Int) {
+    override fun generate(len: Int): String {
         require(len > 0) { "생성할 무작위 값 길이 len은 0보다 작을 수 없습니다." }
-        generatedValue = generateValue(len)
-    }
-
-    override fun getValue(): String {
-        return generatedValue
+        return generateValue(len)
     }
 
     /**
