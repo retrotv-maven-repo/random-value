@@ -46,7 +46,6 @@ abstract class StringGenerator(
 ): RandomGenerator<String> {
     private var allCharGroup: MutableList<CharArray> = mutableListOf()
     private var allCharGroupLeastCommonMultiple = 0
-    private lateinit var generatedValue: String
 
     // securityStrength에 따라 사용할 문자 그룹을 설정
     private val charGroups = getCharsGroup()
