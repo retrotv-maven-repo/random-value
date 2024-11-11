@@ -34,6 +34,8 @@ private val SPECIAL_CHARS = charArrayOf(
  * 기본적으로 모든 문자 그룹에서 최소 한글자 이상 보장하는 isAllCharGroupLeastOne 옵션과,
  * 모든 문자 그룹에서 동일한 확률로 선택되도록 하는 isEqualDistribution 옵션이 활성화 됩니다.
  *
+ * @author  yjj8353
+ * @since   1.0.0
  * @property securityStrength 무작위 값의 보안 강도
  * @property random 무작위 값을 생성할 Random 객체
  * @constructor StringGenerator 클래스 생성
@@ -148,7 +150,7 @@ abstract class StringGenerator(
 
         allCharGroup.forEach{
             val len = allCharGroupLeastCommonMultiple/it.size
-            for (i: Int in 1..len) {
+            for (i in 1..len) {
                 System.arraycopy(
                     it,
                     0,
