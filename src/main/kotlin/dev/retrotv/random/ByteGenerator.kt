@@ -13,6 +13,12 @@ import java.util.Random
 class ByteGenerator(private val random: Random): RandomGenerator<ByteArray> {
     private lateinit var randomData: ByteArray
 
+    /**
+     * 지정한 길이만큼 무작위 바이트 데이터를 생성하고 반환합니다.
+     *
+     * @param len 생성할 바이트 데이터의 길이
+     * @return 생성된 바이트 데이터
+     */
     override fun generate(len: Int): ByteArray {
         randomData = ByteArray(len)
         random.nextBytes(randomData)
