@@ -4,7 +4,7 @@ package dev.retrotv.random.enums
  * 보안 강도를 표현하기 위한 열거형 클래스 입니다.
  *
  * @author  yjj8353
- * @since   1.8
+ * @since   1.0.0
  */
 enum class SecurityStrength(private val label: String, private val explain: String) {
       ONLY_NUMBER("only number", "숫자만 사용합니다.")

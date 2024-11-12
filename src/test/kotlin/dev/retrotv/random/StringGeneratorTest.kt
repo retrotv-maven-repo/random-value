@@ -28,7 +28,8 @@ class StringGeneratorTest {
             assertTrue(password.contains(Regex(".*[0-9]+")))
             assertFalse(password.contains(Regex(".*[^A-Za-z0-9]+")))
         }
-        @DisplayName("SecurityStrength.MEDIUM 테스트")
+
+        @DisplayName("SecurityStrength.MIDDLE 테스트")
         @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
         fun test_medium() {
             val passwordGenerator = PasswordGenerator(SecurityStrength.MIDDLE, SecureRandom())

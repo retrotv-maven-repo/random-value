@@ -34,6 +34,8 @@ private val SPECIAL_CHARS = charArrayOf(
  * 기본적으로 모든 문자 그룹에서 최소 한글자 이상 보장하는 isAllCharGroupLeastOne 옵션과,
  * 모든 문자 그룹에서 동일한 확률로 선택되도록 하는 isEqualDistribution 옵션이 활성화 됩니다.
  *
+ * @author  yjj8353
+ * @since   1.0.0
  * @property securityStrength 무작위 값의 보안 강도
  * @property random 무작위 값을 생성할 Random 객체
  * @constructor StringGenerator 클래스 생성
@@ -44,7 +46,6 @@ abstract class StringGenerator(
 ): RandomGenerator<String> {
     private var allCharGroup: MutableList<CharArray> = mutableListOf()
     private var allCharGroupLeastCommonMultiple = 0
-    private lateinit var generatedValue: String
 
     // securityStrength에 따라 사용할 문자 그룹을 설정
     private val charGroups = getCharsGroup()
@@ -62,6 +63,13 @@ abstract class StringGenerator(
         }
     }
 
+    /**
+     * 지정한 길이만큼 무작위 문자열을 생성하고 반환합니다.
+     *
+     * @param len 생성할 무작위 문자열의 길이
+     * @return 생성된 무작위 문자열
+     * @throws IllegalArgumentException len이 0보다 작으면 던져짐
+     */
     override fun generate(len: Int): String {
         require(len > 0) { "생성할 무작위 값 길이 len은 0보다 작을 수 없습니다." }
         return generateValue(len)
@@ -148,7 +156,7 @@ abstract class StringGenerator(
 
         allCharGroup.forEach{
             val len = allCharGroupLeastCommonMultiple/it.size
-            for (i: Int in 1..len) {
+            for (i in 1..len) {
                 System.arraycopy(
                     it,
                     0,
