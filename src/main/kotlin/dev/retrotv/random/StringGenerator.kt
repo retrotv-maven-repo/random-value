@@ -63,6 +63,13 @@ abstract class StringGenerator(
         }
     }
 
+    /**
+     * 지정한 길이만큼 무작위 문자열을 생성하고 반환합니다.
+     *
+     * @param len 생성할 무작위 문자열의 길이
+     * @return 생성된 무작위 문자열
+     * @throws IllegalArgumentException len이 0보다 작으면 던져짐
+     */
     override fun generate(len: Int): String {
         require(len > 0) { "생성할 무작위 값 길이 len은 0보다 작을 수 없습니다." }
         return generateValue(len)
