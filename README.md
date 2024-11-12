@@ -1,9 +1,7 @@
-<h1 align="center">RandomValue</h1>
-더 이상 무작위 값 생성을 위해 시간을 낭비하지 마세요! 길이와 보안 강도, 그리고 난수를 생성하는 클래스만 있으면 됩니다! RandomValue 라이브러리는 다양한 무작위 값을 생성하는 기능을 제공합니다.
+# RandomValue
+더 이상 무작위 값 생성을 위해 시간을 낭비하지 마세요! 길이와 보안 강도, 그리고 난수를 생성하는 클래스만 있으면 됩니다!
 
------
-
-<h2 align="center">코드품질 테스트 결과</h2>
+## 코드품질 테스트 결과
 <div align="center">
     <a href="https://sonarcloud.io/summary/new_code?id=retrotv-maven-repo_random-value">
         <img src="https://sonarcloud.io/api/project_badges/quality_gate?project=retrotv-maven-repo_random-value" alt="Quality Gate Status" />
@@ -16,14 +14,8 @@
     <img src="https://sonarcloud.io/api/project_badges/measure?project=retrotv-maven-repo_random-value&metric=coverage" alt="Test Coverage" />
 </div>
 
------
-
-<h2 align="center">라이브러리 다운로드</h2>
-<p align="center">
-    <a href="https://jitpack.io/#retrotv-maven-repo/random-value">
-        <img src="https://jitpack.io/v/retrotv-maven-repo/random-value.svg" alt="JitPack" />
-    </a>
-</p>
+## 라이브러리 다운로드
+[![](https://jitpack.io/v/retrotv-maven-repo/random-value.svg)](https://jitpack.io/#retrotv-maven-repo/random-value)
 
 ### Maven
 
@@ -74,5 +66,4 @@ dependencies {
 }
 ```
 
------
-
+## 예제
