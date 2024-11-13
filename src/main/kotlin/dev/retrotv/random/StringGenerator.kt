@@ -66,6 +66,8 @@ abstract class StringGenerator(
     /**
      * 지정한 길이만큼 무작위 문자열을 생성하고 반환합니다.
      *
+     * @author yjj8353
+     * @since 1.0.0
      * @param len 생성할 무작위 문자열의 길이
      * @return 생성된 무작위 문자열
      * @throws IllegalArgumentException len이 0보다 작으면 던져짐
@@ -77,6 +79,9 @@ abstract class StringGenerator(
 
     /**
      * 모든 CharGroup에서 각각, 최소 하나의 값을 보장하도록 설정합니다.
+     *
+     * @author yjj8353
+     * @since 1.0.0
      */
     fun enableAllCharGroupLeastOne() {
         isAllCharGroupLeastOne = true
@@ -84,6 +89,9 @@ abstract class StringGenerator(
 
     /**
      * 모든 CharGroup에서 각각, 최소 하나의 값을 보장하지 않아도 상관 없도록 설정합니다.
+     *
+     * @author yjj8353
+     * @since 1.0.0
      */
     fun disableAllCharGroupLeastOne() {
         isAllCharGroupLeastOne = false
@@ -91,6 +99,9 @@ abstract class StringGenerator(
 
     /**
      * 모든 CharGroup에서 동일한 확률로 값이 선택되도록 설정합니다.
+     *
+     * @author yjj8353
+     * @since 1.0.0
      */
     fun enableEqualDistribution() {
         isEqualDistribution = true
@@ -98,6 +109,9 @@ abstract class StringGenerator(
 
     /**
      * 모든 CharGroup에서 동일하지 않은 확률로 값이 선택되지 않아도 상관 없도록 설정합니다.
+     *
+     * @author yjj8353
+     * @since 1.0.0
      */
     fun disableEqualDistribution() {
         isEqualDistribution = false
