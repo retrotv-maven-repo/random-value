@@ -6,24 +6,31 @@ import dev.retrotv.random.enums.SecurityStrength
 import java.lang.IllegalArgumentException
 import java.util.Random
 
+// 모든 CharGroup에서 최소 한글자 이상 보장하는 옵션
 private var isAllCharGroupLeastOne: Boolean = true
+
+// 모든 CharGroup에서 동일한 확률로 값이 선택되도록 하는 옵션
 private var isEqualDistribution: Boolean = true
 
+// 영소문자 그룹
 private val SMALL_LETTERS = charArrayOf(
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 )
 
+// 영대문자 그룹
 private val CAPITAL_LETTERS = charArrayOf(
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 )
 
+// 숫자 그룹
 private val NUMBERS = charArrayOf(
     '0', '1', '2', '3', '4',
     '5', '6', '7', '8', '9'
 )
 
+// 특수문자 그룹
 private val SPECIAL_CHARS = charArrayOf(
     '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':',
     ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~'
@@ -66,6 +73,8 @@ abstract class StringGenerator(
     /**
      * 지정한 길이만큼 무작위 문자열을 생성하고 반환합니다.
      *
+     * @author yjj8353
+     * @since 1.0.0
      * @param len 생성할 무작위 문자열의 길이
      * @return 생성된 무작위 문자열
      * @throws IllegalArgumentException len이 0보다 작으면 던져짐
@@ -77,6 +86,9 @@ abstract class StringGenerator(
 
     /**
      * 모든 CharGroup에서 각각, 최소 하나의 값을 보장하도록 설정합니다.
+     *
+     * @author yjj8353
+     * @since 1.0.0
      */
     fun enableAllCharGroupLeastOne() {
         isAllCharGroupLeastOne = true
@@ -84,6 +96,9 @@ abstract class StringGenerator(
 
     /**
      * 모든 CharGroup에서 각각, 최소 하나의 값을 보장하지 않아도 상관 없도록 설정합니다.
+     *
+     * @author yjj8353
+     * @since 1.0.0
      */
     fun disableAllCharGroupLeastOne() {
         isAllCharGroupLeastOne = false
@@ -91,6 +106,9 @@ abstract class StringGenerator(
 
     /**
      * 모든 CharGroup에서 동일한 확률로 값이 선택되도록 설정합니다.
+     *
+     * @author yjj8353
+     * @since 1.0.0
      */
     fun enableEqualDistribution() {
         isEqualDistribution = true
@@ -98,14 +116,15 @@ abstract class StringGenerator(
 
     /**
      * 모든 CharGroup에서 동일하지 않은 확률로 값이 선택되지 않아도 상관 없도록 설정합니다.
+     *
+     * @author yjj8353
+     * @since 1.0.0
      */
     fun disableEqualDistribution() {
         isEqualDistribution = false
     }
 
-    /*
-     * 지정된 길이(len)와 각종 옵션 값에 근거하여 무작위 문자열을 생성하고 반환합니다.
-     */
+    // 지정된 길이(len)와 각종 옵션 값에 근거하여 무작위 문자열을 생성하고 반환합니다.
     private fun generateValue(len: Int): String {
 
         // 문자 그룹의 개수가 생성할 무작위 문자열의 길이보다 클 경우, 모든 문자 그룹에서 한 글자 이상 보장할 수 없으므로 예외 발생
@@ -147,9 +166,7 @@ abstract class StringGenerator(
         return String(ca)
     }
 
-    /*
-     * 모든 CharGroup을 묶어, 하나의 CharArray(char[])로 변환해 반환합니다.
-     */
+    // 모든 CharGroup을 묶어, 하나의 CharArray(char[])로 변환해 반환합니다.
     private fun getFullChars(): CharArray {
         val fullChars = CharArray(allCharGroupLeastCommonMultiple * allCharGroup.size)
         var destPos = 0
@@ -186,6 +203,7 @@ abstract class StringGenerator(
         return acglo
     }
 
+    // 보안 강도에 따라 사용할 문자 그룹을 설정합니다.
     private fun getCharsGroup(): Array<CharArray> {
         return when (securityStrength) {
             SecurityStrength.ONLY_NUMBER -> {

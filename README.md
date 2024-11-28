@@ -41,29 +41,41 @@
 ### Gradle
 
 #### Step 1. build.gradle 및 build.gradle.kts에 JitPack 리포지토리를 추가합니다.
+##### build.gradle
 ```gradle
-// build.gradle
 repositories {
     maven { url 'https://jitpack.io' }
 }
-
-// build.gradle.kts
+```
+##### build.gradle.kts
+```gradle.kts
 repositories {
     maven { setUrl("https://jitpack.io") }
 }
 ```
 
 #### Step 2. 의존성을 추가합니다. (Tag에 원하는 버전을 지정하세요.)
+##### build.gradle
 ```gradle
-// build.gradle
 dependencies {
     implementation 'com.github.retrotv-maven-repo:random-value:Tag'
 }
-
-// build.gradle.kts
+```
+##### build.gradle.kts
+```gradle.kts
 dependencies {
     implementation("com.github.retrotv-maven-repo:random-value:Tag")
 }
 ```
-
 ## 예제
+### Java
+```java
+PasswordGenerator pg = new PasswordGenerator(SecurityStrength.HIGH, new SecureRandom());
+String password = pg.generate(16);
+```
+
+### Kotlin
+```kotlin
+val pg = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+val password = pg.generate(16)
+```

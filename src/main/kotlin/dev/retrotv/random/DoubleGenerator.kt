@@ -19,6 +19,8 @@ class DoubleGenerator(private val random: Random): RandomGenerator<Double> {
     /**
      * 지정한 길이만큼 무작위 실수 데이터를 생성하고 반환합니다.
      *
+     * @author yjj8353
+     * @since 1.0.0
      * @param len 생성할 실수 데이터의 길이
      * @return 생성된 실수 데이터
      * @throws IllegalArgumentException len이 0보다 작거나 16보다 크면 던져짐
