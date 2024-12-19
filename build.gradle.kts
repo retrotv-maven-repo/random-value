@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "dev.retrotv"
-version = "1.1.0-alpha"
+version = "1.1.0"
 
 // Github Action 버전 출력용
 tasks.register("printVersionName") {
@@ -25,7 +25,7 @@ repositories {
 }
 
 val dataUtilsVersion = "0.21.0-alpha"
-val junitVersion = "5.10.0"
+val junitVersion = "5.11.2"
 val fakerVersion = "1.16.0"
 
 dependencies {
