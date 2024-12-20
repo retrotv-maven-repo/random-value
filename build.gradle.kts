@@ -24,16 +24,16 @@ repositories {
     maven { setUrl("https://jitpack.io") }
 }
 
-val dataUtilsVersion = "0.21.0-alpha"
-val junitVersion = "5.11.2"
-val fakerVersion = "1.16.0"
+val dataUtils = "0.21.6-alpha"
+val junit = "5.11.2"
+val faker = "1.16.0"
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("com.github.retrotv-maven-repo:data-utils:${dataUtilsVersion}")
-    implementation("io.github.serpro69:kotlin-faker:${fakerVersion}")
+    implementation("com.github.retrotv-maven-repo:data-utils:${dataUtils}")
+    implementation("io.github.serpro69:kotlin-faker:${faker}")
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${junit}")
 }
 
 tasks {
@@ -51,7 +51,6 @@ publishing {
             groupId = project.group.toString()
             artifactId = project.name
             version = project.version.toString()
-
             from(components["java"])
         }
     }
