@@ -1,16 +1,19 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.net.URI
 
 plugins {
     java
     jacoco
     `maven-publish`
-    kotlin("jvm") version "2.0.21"
-    id("org.jetbrains.dokka") version "1.9.20"
+    kotlin("jvm") version "2.1.21"
+    id("com.vanniktech.maven.publish") version "0.32.0"
+    id("org.jetbrains.dokka") version "2.0.0"
     id("org.sonarqube") version "4.0.0.2929"
 }
 
 group = "dev.retrotv"
-version = "1.1.0"
+version = "1.1.1"
 
 // Github Action 버전 출력용
 tasks.register("printVersionName") {
@@ -24,13 +27,13 @@ repositories {
     maven { setUrl("https://jitpack.io") }
 }
 
-val dataUtils = "0.21.6-alpha"
-val junit = "5.11.2"
+val dataUtils = "0.23.0-alpha"
+val junit = "5.13.1"
 val faker = "1.16.0"
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("com.github.retrotv-maven-repo:data-utils:${dataUtils}")
+    implementation("dev.retrotv:data-utils:${dataUtils}")
     implementation("io.github.serpro69:kotlin-faker:${faker}")
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter-params:${junit}")
@@ -45,14 +48,62 @@ tasks {
     }
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = project.group.toString()
-            artifactId = project.name
-            version = project.version.toString()
-            from(components["java"])
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    signAllPublications()
+
+    coordinates(group.toString(), project.name, version.toString())
+
+    pom {
+        name.set("random-value")
+        description.set("안전하고 편리하게 랜덤 값을 생성하는 라이브러리 입니다.")
+        inceptionYear.set("2025")
+        url.set("https://github.com/retrotv-maven-repo/random-value")
+
+        licenses {
+            license {
+                name.set("The Apache License, Version 2.0")
+                url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+            }
         }
+
+        developers {
+            developer {
+                id.set("yjj8353")
+                name.set("JaeJun Yang")
+                email.set("yjj8353@gmail.com")
+            }
+        }
+
+        scm {
+            connection.set("scm:git:git://github.com/retrotv-maven-repo/random-value.git")
+            developerConnection.set("scm:git:ssh://github.com/retrotv-maven-repo/random-value.git")
+            url.set("https://github.com/retrotv-maven-repo/random-value.git")
+        }
+    }
+
+    publishing {
+        repositories {
+
+            // Github Packages에 배포하기 위한 설정
+            maven {
+                name = "GitHubPackages"
+                url = URI("https://maven.pkg.github.com/retrotv-maven-repo/random-value")
+                credentials {
+                    username = System.getenv("USERNAME")
+                    password = System.getenv("PASSWORD")
+                }
+            }
+        }
+    }
+}
+
+tasks.withType<Sign>().configureEach {
+    onlyIf {
+
+        // 로컬 및 깃허브 패키지 배포 시에는 서명하지 않도록 설정
+        !gradle.taskGraph.hasTask(":publishMavenPublicationToMavenLocal") && !gradle.taskGraph.hasTask(":publishMavenPublicationToGitHubPackagesRepository")
     }
 }
 
