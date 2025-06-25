@@ -30,11 +30,22 @@ repositories {
 val dataUtils = "0.23.0-alpha"
 val junit = "5.13.1"
 val faker = "1.16.0"
+val slf4j = "2.0.16"
+val log4j = "2.24.3"
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+
+    // Logger
+    implementation("org.slf4j:slf4j-api:${slf4j}")
+    implementation("org.apache.logging.log4j:log4j-api:${log4j}")
+    implementation("org.apache.logging.log4j:log4j-core:${log4j}")
+    implementation("org.apache.logging.log4j:log4j-slf4j2-impl:${log4j}")
+
     implementation("dev.retrotv:data-utils:${dataUtils}")
     implementation("io.github.serpro69:kotlin-faker:${faker}")
+
+    // Test
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter-params:${junit}")
 }
