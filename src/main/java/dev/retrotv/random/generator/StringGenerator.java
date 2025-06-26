@@ -60,7 +60,7 @@ public abstract class StringGenerator extends RandomGenerator<String> {
      * @param random Random 객체
      * @param securityStrength 생성할 문자열의 보안 강도 수준
      */
-    public StringGenerator(Random random, SecurityStrength securityStrength) {
+    StringGenerator(Random random, SecurityStrength securityStrength) {
         super(random);
         this.securityStrength = securityStrength;
 

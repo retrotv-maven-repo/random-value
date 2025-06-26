@@ -29,9 +29,9 @@ repositories {
 
 val dataUtils = "0.23.0-alpha"
 val junit = "5.13.1"
-val faker = "1.16.0"
 val slf4j = "2.0.16"
 val log4j = "2.24.3"
+val uuid = "6.1.1"
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
@@ -43,7 +43,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl:${log4j}")
 
     implementation("dev.retrotv:data-utils:${dataUtils}")
-    implementation("io.github.serpro69:kotlin-faker:${faker}")
+    implementation("com.github.f4b6a3:uuid-creator:${uuid}")
 
     // Test
     testImplementation(kotlin("test"))
