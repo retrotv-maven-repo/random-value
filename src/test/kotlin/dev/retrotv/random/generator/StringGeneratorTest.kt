@@ -1,6 +1,6 @@
-package dev.retrotv.random
+package dev.retrotv.random.generator
 
-import dev.retrotv.random.enums.SecurityStrength
+import dev.retrotv.random.enums.SecurityStrength.*
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -19,9 +19,10 @@ class StringGeneratorTest {
         @DisplayName("SecurityStrength.LOW 테스트")
         @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
         fun test_low() {
-            val passwordGenerator = PasswordGenerator(SecurityStrength.LOW, SecureRandom())
+            val passwordGenerator = PasswordGenerator(SecureRandom(), LOW)
             passwordGenerator.enableAllCharGroupLeastOne()
-            val password = passwordGenerator.generate(8)
+            passwordGenerator.setLength(8)
+            val password = passwordGenerator.generate()
 
             assertFalse(password.contains(Regex(".*[A-Z]+")))
             assertTrue(password.contains(Regex(".*[a-z]+")))
@@ -32,9 +33,10 @@ class StringGeneratorTest {
         @DisplayName("SecurityStrength.MIDDLE 테스트")
         @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
         fun test_medium() {
-            val passwordGenerator = PasswordGenerator(SecurityStrength.MIDDLE, SecureRandom())
+            val passwordGenerator = PasswordGenerator(SecureRandom(), MIDDLE)
             passwordGenerator.enableAllCharGroupLeastOne()
-            val password = passwordGenerator.generate(8)
+            passwordGenerator.setLength(8)
+            val password = passwordGenerator.generate()
 
             assertTrue(password.contains(Regex(".*[A-Z]+")))
             assertTrue(password.contains(Regex(".*[a-z]+")))
@@ -45,9 +47,10 @@ class StringGeneratorTest {
         @DisplayName("SecurityStrength.HIGH 테스트")
         @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
         fun test_high() {
-            val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+            val passwordGenerator = PasswordGenerator(SecureRandom(), HIGH)
             passwordGenerator.enableAllCharGroupLeastOne()
-            val password = passwordGenerator.generate(8)
+            passwordGenerator.setLength(8)
+            val password = passwordGenerator.generate()
 
             println(password)
 
@@ -61,10 +64,11 @@ class StringGeneratorTest {
     @Test
     @DisplayName("IllegalArgumentException 발생 테스트")
     fun test_illegalArgumentException() {
-        val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+        val passwordGenerator = PasswordGenerator(SecureRandom(), HIGH)
         assertThrows(IllegalArgumentException::class.java) {
             passwordGenerator.enableAllCharGroupLeastOne()
-            passwordGenerator.generate(1)
+            passwordGenerator.setLength(1)
+            passwordGenerator.generate()
         }
     }
 
@@ -75,9 +79,10 @@ class StringGeneratorTest {
         @RepeatedTest(value = 100, name = "{displayName}, {currentRepetition}/{totalRepetitions}")
         @DisplayName("모든 CharGroup에서 각각, 최소 하나의 값을 보장하도록 설정")
         fun test_enableAllCharGroupLeastOne() {
-            val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+            val passwordGenerator = PasswordGenerator(SecureRandom(), HIGH)
             passwordGenerator.enableAllCharGroupLeastOne()
-            val password = passwordGenerator.generate(8)
+            passwordGenerator.setLength(8)
+            val password = passwordGenerator.generate()
 
             assertTrue(password.contains(Regex(".*[A-Z]+")))
             assertTrue(password.contains(Regex(".*[a-z]+")))
@@ -88,9 +93,10 @@ class StringGeneratorTest {
         @Test
         @DisplayName("모든 CharGroup에서 각각, 최소 하나의 값을 보장하지 않도록 설정")
         fun test_disableAllCharGroupLeastOne() {
-            val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+            val passwordGenerator = PasswordGenerator(SecureRandom(), HIGH)
             passwordGenerator.disableAllCharGroupLeastOne()
-            val password = passwordGenerator.generate(8)
+            passwordGenerator.setLength(8)
+            val password = passwordGenerator.generate()
 
             assertNotNull(password)
             assertEquals(8, password.length)
@@ -104,9 +110,10 @@ class StringGeneratorTest {
         @Test
         @DisplayName("모든 CharGroup에서 동일한 확률로 값이 선택되도록 설정")
         fun test_enableEqualDistribution() {
-            val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+            val passwordGenerator = PasswordGenerator(SecureRandom(), HIGH)
             passwordGenerator.enableEqualDistribution()
-            val password = passwordGenerator.generate(8)
+            passwordGenerator.setLength(8)
+            val password = passwordGenerator.generate()
 
             assertNotNull(password)
             assertEquals(8, password.length)
@@ -115,9 +122,10 @@ class StringGeneratorTest {
         @Test
         @DisplayName("모든 CharGroup에서 동일하지 않은 확률로 값이 선택되지 않도록 설정")
         fun test_disableEqualDistribution() {
-            val passwordGenerator = PasswordGenerator(SecurityStrength.HIGH, SecureRandom())
+            val passwordGenerator = PasswordGenerator(SecureRandom(), HIGH)
             passwordGenerator.disableEqualDistribution()
-            val password = passwordGenerator.generate(8)
+            passwordGenerator.setLength(8)
+            val password = passwordGenerator.generate()
 
             assertNotNull(password)
             assertEquals(8, password.length)

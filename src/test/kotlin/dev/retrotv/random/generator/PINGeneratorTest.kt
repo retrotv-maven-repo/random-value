@@ -1,4 +1,4 @@
-package dev.retrotv.random
+package dev.retrotv.random.generator
 
 import java.security.SecureRandom
 import org.junit.jupiter.api.*
@@ -10,7 +10,8 @@ class PINGeneratorTest {
     @DisplayName("PIN 생성 테스트")
     fun test_generate() {
         val pinGenerator = PINGenerator(SecureRandom())
-        val pin = pinGenerator.generate(6)
+        pinGenerator.setLength(6)
+        val pin = pinGenerator.generate()
 
         assertTrue(pin.length == 6)
         assertFalse(pin.contains(Regex(".*[A-Z]+")))

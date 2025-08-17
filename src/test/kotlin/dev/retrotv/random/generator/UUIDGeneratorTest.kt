@@ -1,4 +1,4 @@
-package dev.retrotv.random
+package dev.retrotv.random.generator
 
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.RepeatedTest
@@ -13,7 +13,7 @@ class UUIDGeneratorTest {
         val uuidGenerator = UUIDGenerator()
         val uuidList = HashSet<String>()
         for (i in 0 until 100) {
-            uuidList.add(uuidGenerator.generate())
+            uuidList.add(uuidGenerator.generate().toString())
         }
 
         assertEquals(100, uuidList.size)
