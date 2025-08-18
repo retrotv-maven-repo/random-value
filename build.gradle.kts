@@ -1,23 +1,26 @@
 import com.vanniktech.maven.publish.SonatypeHost
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URI
 
 plugins {
-    java
-    jacoco
-    `maven-publish`
-    kotlin("jvm") version "2.1.21"
+    id("java")
+    id("jacoco")
+    id("maven-publish")
     id("com.vanniktech.maven.publish") version "0.32.0"
-    id("org.jetbrains.dokka") version "2.0.0"
     id("org.sonarqube") version "4.0.0.2929"
 }
 
-group = "dev.retrotv"
-version = "1.1.3"
-
-tasks.withType(JavaCompile::class) {
+tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+
+group = "dev.retrotv"
+version = "1.2.0"
 
 // Github Action 버전 출력용
 tasks.register("printVersionName") {
@@ -28,7 +31,6 @@ tasks.register("printVersionName") {
 
 repositories {
     mavenCentral()
-    maven { setUrl("https://jitpack.io") }
 }
 
 val dataUtils = "0.23.3-alpha"
@@ -38,7 +40,6 @@ val log4j = "2.25.1"
 val uuid = "6.1.1"
 
 dependencies {
-    implementation(kotlin("stdlib-jdk8"))
 
     // Logger
     compileOnly("org.slf4j:slf4j-api:${slf4j}")
@@ -50,17 +51,9 @@ dependencies {
     implementation("com.github.f4b6a3:uuid-creator:${uuid}")
 
     // Test
-    testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-params:${junit}")
-}
-
-tasks {
-    compileKotlin {
-        compilerOptions.jvmTarget.set(JvmTarget.JVM_1_8)
-    }
-    compileTestKotlin {
-        compilerOptions.jvmTarget.set(JvmTarget.JVM_1_8)
-    }
+    testImplementation(platform("org.junit:junit-bom:${junit}"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 mavenPublishing {
@@ -125,10 +118,6 @@ tasks.withType<Sign>().configureEach {
 tasks.test {
     useJUnitPlatform()
     finalizedBy("jacocoTestReport")
-}
-
-kotlin {
-    jvmToolchain(8)
 }
 
 tasks.jacocoTestReport {
