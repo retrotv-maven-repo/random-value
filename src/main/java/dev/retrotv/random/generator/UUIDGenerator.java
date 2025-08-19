@@ -14,6 +14,7 @@ import java.util.UUID;
 public class UUIDGenerator extends RandomGenerator<UUID> {
     private static final UUIDVersion DEFAULT_UUID_VERSION = UUIDVersion.V4;
     private UUIDVersion version = DEFAULT_UUID_VERSION;
+    private String name = "";
 
     /**
      * 기본 생성자
@@ -36,6 +37,10 @@ public class UUIDGenerator extends RandomGenerator<UUID> {
         this.version = version;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public UUID generate() {
         UUID uuid;
@@ -45,10 +50,10 @@ public class UUIDGenerator extends RandomGenerator<UUID> {
                 uuid = UuidCreator.getTimeBased();
                 break;
             case V3:
-                uuid = UuidCreator.getNameBasedMd5("RetroTV");
+                uuid = UuidCreator.getNameBasedMd5(name);
                 break;
             case V5:
-                uuid = UuidCreator.getNameBasedSha1("RetroTV");
+                uuid = UuidCreator.getNameBasedSha1(name);
                 break;
             case V6:
                 uuid = UuidCreator.getTimeOrdered();

@@ -4,6 +4,13 @@ import dev.retrotv.data.utils.ByteUtils;
 
 import java.util.Random;
 
+/**
+ * 무작위 16진수 문자열 데이터를 생성하기 위한 클래스입니다.
+ * 생성된 문자열은 지정된 길이의 16진수 표현을 포함합니다.
+ *
+ * @author yjj8353
+ * @since 2.0.0
+ */
 public class HEXGenerator extends RandomGenerator<String> {
     private static final int DEFAULT_LENGTH = 16;
     private int length = DEFAULT_LENGTH;
