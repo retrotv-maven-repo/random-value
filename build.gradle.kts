@@ -33,7 +33,7 @@ repositories {
     mavenCentral()
 }
 
-val dataUtils = "0.23.3-alpha"
+val dataUtils = "0.24.2-alpha"
 val junit = "5.13.1"
 val slf4j = "2.0.17"
 val log4j = "2.25.1"
