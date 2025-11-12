@@ -6,7 +6,7 @@ plugins {
     id("jacoco")
     id("maven-publish")
     id("com.vanniktech.maven.publish") version "0.32.0"
-    id("org.sonarqube") version "4.0.0.2929"
+    id("org.sonarqube") version "7.0.1.6134"
 }
 
 tasks.withType<JavaCompile> {
