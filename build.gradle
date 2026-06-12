@@ -1,0 +1,84 @@
+buildscript {
+    def isCompatibilityTest = project.findProperty('compatibilityTest')?.toString()?.toBoolean() ?: false
+    if (!isCompatibilityTest) {
+        repositories {
+            gradlePluginPortal()
+            mavenCentral()
+        }
+        dependencies {
+            classpath 'com.vanniktech:gradle-maven-publish-plugin:0.36.0'
+            classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:7.0.1.6134'
+        }
+    }
+}
+
+plugins {
+    id "java"
+    id "jacoco"
+    id "maven-publish"
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.with {
+        charSet = "UTF-8" // HTML charset
+        encoding = "UTF-8" // 소스 읽기 인코딩
+        docEncoding = "UTF-8" // 출력 파일 인코딩
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
+group = "dev.retrotv"
+version = "1.2.1"
+
+// Github Action 버전 출력용
+tasks.register("printVersionName") {
+    description = "이 프로젝트의 버전을 출력합니다."
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
+    println(project.version)
+}
+
+repositories {
+    mavenCentral()
+}
+
+def dataUtils = "0.24.2-alpha"
+def junit = "5.13.1"
+def slf4j = "2.0.17"
+def log4j = "2.25.1"
+def uuid = "6.1.1"
+
+dependencies {
+
+    // Logger
+    compileOnly "org.slf4j:slf4j-api:${slf4j}"
+    testImplementation "org.slf4j:slf4j-api:${slf4j}"
+    testImplementation "org.apache.logging.log4j:log4j-core:${log4j}"
+    testImplementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4j}"
+
+    implementation "dev.retrotv:data-utils:${dataUtils}"
+    implementation "com.github.f4b6a3:uuid-creator:${uuid}"
+
+    // Test
+    testImplementation platform("org.junit:junit-bom:${junit}")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+// 호환성 테스트를 제외한 빌드에서만 적용
+def isCompatibilityTest = project.findProperty('compatibilityTest')?.toString()?.toBoolean() ?: false
+if (!isCompatibilityTest) {
+    apply plugin: 'com.vanniktech.maven.publish'
+    apply plugin: 'org.sonarqube'
+    apply from: "${rootDir}/gradle/jacoco.gradle"
+    apply from: "${rootDir}/gradle/publish.gradle"
+    apply from: "${rootDir}/gradle/sonarcloud.gradle"
+}
