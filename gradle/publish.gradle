@@ -30,18 +30,18 @@ mavenPublishing {
             url = "https://github.com/retrotv-maven-repo/random-value.git"
         }
     }
+}
 
-    publishing {
-        repositories {
+publishing {
+    repositories {
 
-            // Github Packages에 배포하기 위한 설정
-            maven {
-                name = "GitHubPackages"
-                url = new URI("https://maven.pkg.github.com/retrotv-maven-repo/random-value")
-                credentials {
-                    username = System.getenv("USERNAME")
-                    password = System.getenv("PASSWORD")
-                }
+        // Github Packages에 배포하기 위한 설정
+        maven {
+            name = "GitHubPackages"
+            url = new URI("https://maven.pkg.github.com/retrotv-maven-repo/random-value")
+            credentials {
+                username = System.getenv("USERNAME")
+                password = System.getenv("PASSWORD")
             }
         }
     }
