@@ -13,26 +13,30 @@ buildscript {
 }
 
 plugins {
-    id "java"
-    id "jacoco"
-    id "maven-publish"
+    id 'java'
+    id 'jacoco'
+    id 'maven-publish'
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = "UTF-8"
+    options.encoding = 'UTF-8'
 }
 
-tasks.withType(Javadoc).configureEach {
-    options.with {
-        charSet = "UTF-8" // HTML charset
-        encoding = "UTF-8" // 소스 읽기 인코딩
-        docEncoding = "UTF-8" // 출력 파일 인코딩
-    }
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
+        languageVersion = JavaLanguageVersion.of((project.findProperty('targetJava') ?: '8').toString().toInteger())
+    }
+}
+
+tasks.withType(Javadoc).configureEach {
+    options.with {
+        charSet = 'UTF-8'      // HTML charset
+        encoding = 'UTF-8'     // 소스 읽기 인코딩
+        docEncoding = 'UTF-8'  // 출력 파일 인코딩
     }
 }
 
@@ -52,8 +56,8 @@ repositories {
 
 def dataUtils = "0.24.2-alpha"
 def junit = "5.13.1"
-def slf4j = "2.0.17"
-def log4j = "2.25.1"
+def slf4j = "2.0.18"
+def log4j = "2.26.0"
 def uuid = "6.1.1"
 
 dependencies {
